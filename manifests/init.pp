@@ -82,9 +82,9 @@ class newrelic_server_monitor (
     mode    => '0640',
     owner   => 'root',
     group   => 'newrelic',
-    notify  => Service['newrelic-sysmond'],
     content  => template('newrelic_server_monitor/nrsysmond.cfg.erb')
   }
+  Package['newrelic-sysmond'] -> File['/etc/newrelic/nrsysmond.cfg'] ~> Service['newrelic-sysmond']
 
   service { 'newrelic-sysmond':
     ensure  => running,
